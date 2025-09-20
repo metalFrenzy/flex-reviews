@@ -66,7 +66,7 @@ export default function DashboardPage() {
       <div className={styles.controls}>
         <label>
           Sort by:{" "}
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="select">
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className={styles.select}>
             <option value="date">Date</option>
             <option value="rating">Rating</option>
             <option value="guest">Guest</option>
@@ -74,53 +74,70 @@ export default function DashboardPage() {
         </label>
       </div>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>Guest</th>
-            <th>Rating</th>
-            <th>Review</th>
-            <th>Date</th>
-            <th>Approved</th>
-            <th>Public Page</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedReviews.map((review) => {
-            const propertyId = Object.keys(propertyMap).find(
-              (key) => propertyMap[key] === review.property
-            );
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Guest</th>
+              <th>Rating</th>
+              <th>Review</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedReviews.map((review) => {
+              const propertyId = Object.keys(propertyMap).find(
+                (key) => propertyMap[key] === review.property
+              );
 
-            return (
-              <tr key={review.id}>
-                <td>{review.property}</td>
-                <td>{review.guest}</td>
-                <td>{review.rating}</td>
-                <td>{review.review}</td>
-                <td>{new Date(review.date).toLocaleDateString()}</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={review.approved}
-                    onChange={() => toggleApproval(review.id)}
-                    className={styles.checkbox}
-                  />
-                </td>
-                <td>
-                  {propertyId ? (
-                    <Link href={`/property/${propertyId}`} className={styles.link}>
-                      View Property
-                    </Link>
-                  ) : (
-                    "-"
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+              return (
+                <tr key={review.id}>
+                  <td>{review.property}</td>
+                  <td>{review.guest}</td>
+                  <td className={styles.ratingCell} data-rating={review.rating}>
+                    ★ {review.rating}
+                  </td>
+                  <td className={styles.reviewCell}>
+                    <div className={styles.reviewText}>{review.review}</div>
+                  </td>
+                  <td className={styles.dateCell}>
+                    {new Date(review.date).toLocaleDateString()}
+                  </td>
+                  <td>
+                    <div className={styles.approvalBadge}>
+                      <input
+                        type="checkbox"
+                        checked={review.approved}
+                        onChange={() => toggleApproval(review.id)}
+                        className={styles.checkbox}
+                        aria-label={`Toggle approval for ${review.guest}'s review`}
+                      />
+                      <span
+                        className={`${styles.approvalStatus} ${review.approved ? styles.approved : styles.pending
+                          }`}
+                      >
+                        {review.approved ? "Approved" : "Pending"}
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    {propertyId ? (
+                      <Link href={`/property/${propertyId}`} className={styles.link}>
+                        View Property
+                      </Link>
+                    ) : (
+                      <span style={{ color: 'var(--foreground-muted)' }}>-</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
