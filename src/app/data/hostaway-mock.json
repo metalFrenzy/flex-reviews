@@ -1,0 +1,181 @@
+{
+  "status": "success",
+  "result": [
+    {
+      "id": 1001,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 8,
+      "publicReview": "Lovely apartment, very clean and close to transport.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "communication", "rating": 8 },
+        { "category": "location", "rating": 10 }
+      ],
+      "submittedAt": "2024-06-21 15:30:00",
+      "guestName": "Alice Johnson",
+      "listingName": "2B N1 A - 29 Shoreditch Heights",
+      "channel": "Airbnb"
+    },
+    {
+      "id": 1002,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 6,
+      "publicReview": "Nice flat but noisy at night.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 7 },
+        { "category": "communication", "rating": 9 },
+        { "category": "location", "rating": 5 }
+      ],
+      "submittedAt": "2024-06-18 12:00:00",
+      "guestName": "Bob Smith",
+      "listingName": "2B N1 A - 29 Shoreditch Heights",
+      "channel": "Booking.com"
+    },
+    {
+      "id": 1003,
+      "type": "host-to-guest",
+      "status": "published",
+      "rating": null,
+      "publicReview": "Shane and family are wonderful! Would definitely host again :)",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "respect_house_rules", "rating": 10 }
+      ],
+      "submittedAt": "2020-08-21 22:45:14",
+      "guestName": "Shane Finkelstein",
+      "listingName": "2B N1 A - 29 Shoreditch Heights",
+      "channel": "Hostaway"
+    },
+    {
+      "id": 2001,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 9,
+      "publicReview": "Amazing seaview, very modern. Check-in was smooth.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 9 },
+        { "category": "communication", "rating": 9 },
+        { "category": "check_in", "rating": 10 }
+      ],
+      "submittedAt": "2024-05-11 09:20:00",
+      "guestName": "Carlos Mendes",
+      "listingName": "Bayside Loft - Apartment 5",
+      "channel": "Airbnb"
+    },
+    {
+      "id": 2002,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 5,
+      "publicReview": "Good place but the AC was broken one night.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 7 },
+        { "category": "communication", "rating": 6 },
+        { "category": "value", "rating": 4 }
+      ],
+      "submittedAt": "2024-04-29 18:05:00",
+      "guestName": "Dana Lee",
+      "listingName": "Bayside Loft - Apartment 5",
+      "channel": "Direct"
+    },
+    {
+      "id": 2003,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 7,
+      "publicReview": "Comfortable, but street noise was noticeable.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 8 },
+        { "category": "location", "rating": 6 },
+        { "category": "communication", "rating": 7 }
+      ],
+      "submittedAt": "2023-12-02 11:11:00",
+      "guestName": "Eve Campbell",
+      "listingName": "Bayside Loft - Apartment 5",
+      "channel": "Booking.com"
+    },
+    {
+      "id": 3001,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 10,
+      "publicReview": "Tiny studio but spotless and great host. Perfect for a weekend.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 10 },
+        { "category": "communication", "rating": 10 },
+        { "category": "location", "rating": 9 }
+      ],
+      "submittedAt": "2024-07-01 08:00:00",
+      "guestName": "Fiona Green",
+      "listingName": "Seaside Studio",
+      "channel": "Airbnb"
+    },
+    {
+      "id": 3002,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 3,
+      "publicReview": "Found cockroaches in the kitchen. Very disappointed.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 2 },
+        { "category": "value", "rating": 3 },
+        { "category": "communication", "rating": 4 }
+      ],
+      "submittedAt": "2023-09-10 20:00:00",
+      "guestName": "George Frank",
+      "listingName": "Seaside Studio",
+      "channel": "Airbnb"
+    },
+    {
+      "id": 3003,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 6,
+      "publicReview": "OK stay. Bathroom could be improved.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 6 },
+        { "category": "communication", "rating": 6 },
+        { "category": "value", "rating": 6 }
+      ],
+      "submittedAt": "2024-01-15 14:14:00",
+      "guestName": "Hannah O'Neil",
+      "listingName": "Seaside Studio",
+      "channel": "Hostaway"
+    },
+    {
+      "id": 4001,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 8,
+      "publicReview": "Nice modern furniture, good for business trips.",
+      "reviewCategory": [
+        { "category": "cleanliness", "rating": 8 },
+        { "category": "communication", "rating": 9 },
+        { "category": "location", "rating": 8 }
+      ],
+      "submittedAt": "2024-02-01 10:00:00",
+      "guestName": "Ibrahim Said",
+      "listingName": "2B N1 A - 29 Shoreditch Heights",
+      "channel": "Direct"
+    },
+    {
+      "id": 4002,
+      "type": "guest-to-host",
+      "status": "published",
+      "rating": 4,
+      "publicReview": "Misleading photos, place was smaller than expected.",
+      "reviewCategory": [
+        { "category": "value", "rating": 4 },
+        { "category": "location", "rating": 5 },
+        { "category": "cleanliness", "rating": 4 }
+      ],
+      "submittedAt": "2024-03-03 19:30:00",
+      "guestName": "Julia Park",
+      "listingName": "Bayside Loft - Apartment 5",
+      "channel": "Booking.com"
+    }
+  ]
+}
