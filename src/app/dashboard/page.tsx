@@ -1,6 +1,7 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { propertyMap } from "../data/properties";
 
 type Review = {
     id: number;
@@ -15,6 +16,7 @@ type Review = {
 
 export default function DashboardPage() {
     const [reviews, setReviews] = useState<Review[]>([]);
+    const [sortBy, setSortBy] = useState<string>("date"); // default sort by date
 
     // Load reviews from API + saved approvals
     useEffect(() => {
@@ -46,15 +48,49 @@ export default function DashboardPage() {
                 approvals[r.id] = r.approved;
             });
             localStorage.setItem("approvals", JSON.stringify(approvals));
-
             return updated;
         });
     }
 
+    // Apply sorting
+    const sortedReviews = [...reviews].sort((a, b) => {
+        if (sortBy === "rating") {
+            return b.rating - a.rating; // highest first
+        }
+        if (sortBy === "guest") {
+            return a.guest.localeCompare(b.guest);
+        }
+        if (sortBy === "date") {
+            return new Date(b.date).getTime() - new Date(a.date).getTime(); // newest first
+        }
+        return 0;
+    });
+
     return (
         <div style={{ padding: "2rem" }}>
             <h1>Manager Dashboard</h1>
-            <table border={1} cellPadding={8} style={{ width: "100%", marginTop: "1rem" }}>
+
+            {/* Sorting control */}
+            <div style={{ marginBottom: "1rem" }}>
+                <label>
+                    Sort by:{" "}
+                    <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value)}
+                    >
+                        <option value="date">Date</option>
+                        <option value="rating">Rating</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                </label>
+            </div>
+
+            {/* Table of reviews */}
+            <table
+                border={1}
+                cellPadding={8}
+                style={{ width: "100%", marginTop: "1rem" }}
+            >
                 <thead>
                     <tr>
                         <th>Property</th>
@@ -63,25 +99,47 @@ export default function DashboardPage() {
                         <th>Review</th>
                         <th>Date</th>
                         <th>Approved</th>
+                        <th>Public Page</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {reviews.map((r) => (
-                        <tr key={r.id}>
-                            <td>{r.property}</td>
-                            <td>{r.guest}</td>
-                            <td>{r.rating}</td>
-                            <td>{r.review}</td>
-                            <td>{new Date(r.date).toLocaleDateString()}</td>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    checked={r.approved}
-                                    onChange={() => toggleApproval(r.id)}
-                                />
-                            </td>
-                        </tr>
-                    ))}
+                    {sortedReviews.map((review) => {
+                        const propertyId = Object.keys(propertyMap).find(
+                            (key) => propertyMap[key] === review.property
+                        );
+
+                        return (
+                            <tr key={review.id}>
+                                <td>{review.property}</td>
+                                <td>{review.guest}</td>
+                                <td>{review.rating}</td>
+                                <td>{review.review}</td>
+                                <td>{new Date(review.date).toLocaleDateString()}</td>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        checked={review.approved}
+                                        onChange={() => toggleApproval(review.id)}
+                                    />
+                                </td>
+                                <td>
+                                    {propertyId ? (
+                                        <Link
+                                            href={`/property/${propertyId}`}
+                                            style={{
+                                                color: "blue",
+                                                textDecoration: "underline",
+                                            }}
+                                        >
+                                            View Property
+                                        </Link>
+                                    ) : (
+                                        "-"
+                                    )}
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>
