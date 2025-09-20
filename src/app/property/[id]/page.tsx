@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { propertyMap } from "@/app/data/properties";
+
 
 type Review = {
   id: number;
@@ -15,8 +17,9 @@ type Review = {
 };
 
 export default function PropertyPage() {
-  const params = useParams(); // <-- use this
-  const propertyId = params.id as string; // cast to string
+  const params = useParams();
+  const propertyId = params.id as string;
+  const propertyName = propertyMap[propertyId]; 
 
   const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -35,17 +38,16 @@ export default function PropertyPage() {
 
       setReviews(
         merged.filter(
-          (r: Review) =>
-            r.property.includes(propertyId) && r.approved === true
+          (r: Review) => r.property === propertyName && r.approved === true
         )
       );
     }
     fetchReviews();
-  }, [propertyId]);
+  }, [propertyName]);
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Property {propertyId}</h1>
+      <h1>{propertyName || `Property ${propertyId}`}</h1>
 
       <h2>Guest Reviews</h2>
       {reviews.length === 0 ? (
