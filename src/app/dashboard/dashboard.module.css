@@ -5,10 +5,14 @@
   min-height: 100vh;
 }
 
+.header {
+  margin-bottom: 2rem;
+}
+
 .title {
   font-size: 2.25rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -16,22 +20,89 @@
   display: inline-block;
 }
 
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 1rem;
+  color: var(--foreground-secondary);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px var(--shadow-light);
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--foreground-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
 .controls {
   margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   padding: 1.5rem;
   background: var(--background-secondary);
   border-radius: 12px;
   border: 1px solid var(--border);
   box-shadow: 0 4px 6px var(--shadow-light);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.controls label {
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.controlGroup label {
   font-weight: 600;
   color: var(--foreground-secondary);
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .select {
@@ -55,6 +126,17 @@
 .select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.resultsCount {
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: var(--foreground-muted);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: var(--background-tertiary);
+  border-radius: 20px;
+  border: 1px solid var(--border);
 }
 
 .tableWrapper {
@@ -128,24 +210,57 @@
   color: var(--foreground);
 }
 
-.ratingCell[data-rating="5"] {
+.ratingCell[data-rating="10"],
+.ratingCell[data-rating="9"],
+.ratingCell[data-rating="8"] {
   color: var(--success);
 }
 
-.ratingCell[data-rating="4"] {
-  color: #22c55e;
-}
-
-.ratingCell[data-rating="3"] {
+.ratingCell[data-rating="7"],
+.ratingCell[data-rating="6"] {
   color: var(--warning);
 }
 
-.ratingCell[data-rating="2"] {
-  color: #f97316;
-}
-
+.ratingCell[data-rating="5"],
+.ratingCell[data-rating="4"],
+.ratingCell[data-rating="3"],
+.ratingCell[data-rating="2"],
 .ratingCell[data-rating="1"] {
   color: var(--danger);
+}
+
+.channelBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.channelBadge[data-channel="airbnb"] {
+  background: rgba(255, 90, 95, 0.15);
+  color: #ff5a5f;
+  border: 1px solid rgba(255, 90, 95, 0.3);
+}
+
+.channelBadge[data-channel="booking.com"] {
+  background: rgba(0, 90, 180, 0.15);
+  color: #005ab4;
+  border: 1px solid rgba(0, 90, 180, 0.3);
+}
+
+.channelBadge[data-channel="direct"] {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.channelBadge[data-channel="hostaway"] {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .reviewCell {
@@ -230,6 +345,21 @@
 
 /* Responsive design */
 @media (max-width: 1024px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .controlGroup {
+    justify-content: space-between;
+  }
+  
+  .resultsCount {
+    margin-left: 0;
+    text-align: center;
+  }
+  
   .table th,
   .table td {
     padding: 1rem 0.75rem;
@@ -256,10 +386,32 @@
     margin-bottom: 1.5rem;
   }
   
-  .controls {
-    flex-direction: column;
-    align-items: flex-start;
+  .statsOverview {
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+  }
+  
+  .statItem {
+    padding: 0.75rem;
+  }
+  
+  .statValue {
+    font-size: 1.25rem;
+  }
+  
+  .controls {
+    padding: 1rem;
+  }
+  
+  .controlGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .controlGroup label {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
   }
   
   .reviewCell {
@@ -277,6 +429,10 @@
 }
 
 @media (max-width: 640px) {
+  .statsOverview {
+    grid-template-columns: 1fr;
+  }
+  
   .table {
     font-size: 0.8rem;
   }
@@ -293,5 +449,10 @@
   .link {
     padding: 0.375rem 0.75rem;
     font-size: 0.8rem;
+  }
+  
+  .channelBadge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
   }
 }
