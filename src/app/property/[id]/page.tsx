@@ -77,7 +77,7 @@ export default function PropertyPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Link href="/" className={styles.backButton}>
+        <Link href="/dashboard" className={styles.backButton}>
           ← Back to Dashboard
         </Link>
         <h1 className={styles.title}>
