@@ -16,21 +16,39 @@ type Review = {
 export default function DashboardPage() {
     const [reviews, setReviews] = useState<Review[]>([]);
 
+    // Load reviews from API + saved approvals
     useEffect(() => {
         async function fetchReviews() {
             const res = await fetch("/api/reviews/hostaway");
             const data = await res.json();
-            setReviews(data.reviews);
+
+            // Get saved approvals from localStorage
+            const savedApprovals =
+                JSON.parse(localStorage.getItem("approvals") || "{}");
+
+            const merged = data.reviews.map((r: Review) => ({
+                ...r,
+                approved: savedApprovals[r.id] || false,
+            }));
+
+            setReviews(merged);
         }
         fetchReviews();
     }, []);
 
     function toggleApproval(id: number) {
-        setReviews((prev) =>
-            prev.map((r) =>
+        setReviews((prev) => {
+            const updated = prev.map((r) =>
                 r.id === id ? { ...r, approved: !r.approved } : r
-            )
-        );
+            );
+            const approvals: Record<number, boolean> = {};
+            updated.forEach((r) => {
+                approvals[r.id] = r.approved;
+            });
+            localStorage.setItem("approvals", JSON.stringify(approvals));
+
+            return updated;
+        });
     }
 
     return (
